@@ -1,0 +1,49 @@
+<div class="container">
+  <!-- Table Section -->
+  <div class="table-container">
+    <table class="expense-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Category</th>
+          <th>Description</th>
+          <th>ID</th>
+          <th>Tags</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let expense of expenses | slice: (page - 1) * 5 : (page - 1) * 5 + 5">
+          <td>{{ expense.expense_name }}</td>
+          <td>Rs. {{ expense.expense_amount }}</td>
+          <td>{{ expense.expense_date }}</td>
+          <td>{{ expense.category_name }}</td>
+          <td>{{ expense.expense_description }}</td>
+          <td>{{ expense.expense_id }}</td>
+          <td>{{ expense.tags }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="pagination-container">
+      <ngb-pagination [pageSize]="5" [collectionSize]="expenses.length" [(page)]="page"></ngb-pagination>
+    </div>
+  </div>
+
+  <!-- Charts Section -->
+  <div class="charts-container">
+    <div class="chart-box">
+      <!-- <h3>Expense Chart</h3>
+      <p>Relation between expense name and expense amount</p> -->
+      <app-chart *ngIf="expenses" [parameter1]="'expense_name'" [parameter2]="'expense_amount'" [data]="expenses"></app-chart>
+    </div>
+
+    <div class="chart-box">
+      <!-- <h3>Expense Chart</h3>
+      <p>Relation between category name and total sum</p> -->
+      <app-chart *ngIf="expensesCategory" [parameter1]="'category_name'" [parameter2]="'total_sum'" [data]="expensesCategory"></app-chart>
+    </div>
+  </div>
+</div>

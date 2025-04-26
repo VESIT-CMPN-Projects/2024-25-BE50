@@ -1,0 +1,40 @@
+<div class="container">
+  <h2 class="page-title">Budget List</h2>
+
+  <div class="card-container">
+    <div class="card" *ngIf="budget" routerLink="/budget/{{ budget.slug }}">
+      <div class="card-header">
+        <h3>{{ budget.budget_name }}</h3>
+        <p>{{ budget.category_name }}</p>
+      </div>
+      <div class="card-body">
+        <p>Amount: Rs. {{ budget.target_amount }}</p>
+        <p>Date: {{ budget.date_to_achieve | date : "mediumDate" }}</p>
+        <p>Description: {{ budget.budget_description }}</p>
+        <p>Tags: {{ budget.tags }}</p>
+        <p>Target Achieved: {{ budget.target_achieved }}</p>
+
+        <button (click)="toggleAmountInput()" class="btn-enter-amount m-3">
+          Enter amount saved for this budget
+        </button>
+        <input
+          *ngIf="showAmountInput"
+          type="number"
+          [(ngModel)]="amountSaved"
+          placeholder="Enter amount achieved"
+        />
+        <button
+          *ngIf="showAmountInput"
+          (click)="saveAmount()"
+          class="btn-save-amount"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+  <ag-charts-angular *ngIf="options"
+    style="height: 100%"
+    [options]="options"
+  ></ag-charts-angular>
+</div>

@@ -1,0 +1,46 @@
+.receipt-wrapper {
+  max-width: 900px; /* Limit width */
+  margin: auto; /* Centering */
+  padding: 20px;
+}
+
+.upload-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.upload-container input {
+  flex: 1;
+}
+
+.receipt-container {
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+.receipt-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.receipt-table th, .receipt-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.receipt-table th {
+  background-color: #f4f4f4;
+}
+
+.loading, .error {
+  font-weight: bold;
+  text-align: center;
+}

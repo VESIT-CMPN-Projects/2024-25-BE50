@@ -1,0 +1,10 @@
+<div class="note-container" *ngIf="notes; else noNoteFound">
+    <h2 class="note-title">{{ notes.note_title }}</h2>
+    <p class="note-description">{{ notes.note_description }}</p>
+  </div>
+  
+  <!-- Fallback Message When No Notes Are Found -->
+  <ng-template #noNoteFound>
+    <p class="no-note-message">No notes found!</p>
+  </ng-template>
+  

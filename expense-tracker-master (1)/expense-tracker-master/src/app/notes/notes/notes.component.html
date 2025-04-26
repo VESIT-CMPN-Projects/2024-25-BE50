@@ -1,0 +1,21 @@
+<div class="notes-container">
+  <h2 class="notes-heading">Your Notes</h2>
+  
+  <table class="notes-table" *ngIf="notes.length > 0; else noNotes">
+    <thead>
+      <tr>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let notee of notes" [routerLink]="['/fetch-note', notee.note_id]" class="note-row">
+        <td>{{ notee.note_title }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Message for No Notes -->
+  <ng-template #noNotes>
+    <p class="no-notes-message">No notes found!</p>
+  </ng-template>
+</div>

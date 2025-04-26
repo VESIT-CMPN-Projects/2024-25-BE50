@@ -1,0 +1,83 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form class="vertical-form" [formGroup]="splitExpenseForm">
+
+        <!-- Category Dropdown -->
+        <div class="form-group">
+          <label>Category</label>
+          <div ngbDropdown class="d-inline-block w-100">
+            <button
+              type="button"
+              class="btn btn-outline-primary w-100 text-left"
+              id="dropdownBasic1"
+              ngbDropdownToggle
+            >
+              {{ selectedCategory ?? "Select Category" }}
+            </button>
+            <div ngbDropdownMenu class="w-100">
+              <button
+                (click)="selectCategory(category)"
+                ngbDropdownItem
+                *ngFor="let category of categoryData"
+                class="w-100 text-left"
+              >
+                {{ category.category_name }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Expense Name -->
+        <div class="form-group">
+          <label for="expenseName">Expense Name</label>
+          <input type="text" class="form-control" id="expenseName" formControlName="expenseName" required />
+        </div>
+
+        <!-- Total Expense Amount -->
+        <div class="form-group">
+          <label for="expenseAmount">Total Expense Amount</label>
+          <input type="number" class="form-control" id="expenseAmount" formControlName="expenseAmount" (input)="updateUserShare()" required />
+        </div>
+
+        <!-- Number of People -->
+        <div class="form-group">
+          <label for="numberOfPeople">Number of People</label>
+          <input type="number" class="form-control" id="numberOfPeople" formControlName="numberOfPeople" (input)="updateUserShare()" min="1" required />
+        </div>
+
+        <!-- User Share -->
+        <div class="form-group">
+          <label>Your Share:</label>
+          <p class="calculated-share">{{ userShare.toFixed(2) }}</p>
+        </div>
+
+        <!-- Expense Description -->
+        <div class="form-group">
+          <label for="expenseDescription">Expense Description</label>
+          <textarea class="form-control" id="expenseDescription" formControlName="expenseDescription"></textarea>
+        </div>
+
+        <!-- Expense Date -->
+        <div class="form-group">
+          <label for="expenseDate">Expense Date</label>
+          <input type="date" class="form-control" id="expenseDate" formControlName="expenseDate" required />
+        </div>
+
+        <!-- Tags -->
+        <div class="form-group">
+          <label for="tags">Tags</label>
+          <input type="text" class="form-control" id="tags" formControlName="tags" />
+        </div>
+
+        <br />
+
+        <!-- Submit Button -->
+        <div class="form-group text-center">
+          <button type="submit" (click)="submitForm()" class="btn btn-primary">Submit</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

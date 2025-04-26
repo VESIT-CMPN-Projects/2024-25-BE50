@@ -1,0 +1,21 @@
+<div class="note-container">
+  <!-- Title Input -->
+  <input
+    type="text"
+    placeholder="Enter your title"
+    class="form-control note-title"
+    [(ngModel)]="title"
+  />
+
+  <!-- Editor Section -->
+  <div class="note-editor">
+    <st-editor [(ngModel)]="content" [config]="config"></st-editor>
+  </div>
+
+  <!-- Submit Button -->
+  <div class="text-end">
+    <button type="submit" class="btn btn-primary note-submit" (click)="addNote()">
+      Submit
+    </button>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="container">
+  <h2>Bulk Upload Expenses</h2>
+  <div class="btn-container">
+    <!-- Button to download CSV template -->
+    <a class="btn btn-primary" (click)="downloadCSVTemplate()"
+      >Download CSV Template</a
+    >
+  </div>
+  <div class="btn-container">
+    <!-- Button to trigger file upload -->
+    <button class="btn btn-success" (click)="fileUploadSimple.click()">
+      Import from csv
+    </button>
+    <!-- Hidden file input -->
+    <input
+      #fileUploadSimple
+      [accept]="'.csv'"
+      type="file"
+      class="file-input"
+      (change)="importDataFromCSV($event)"
+      hidden="true"
+    />
+    <button class="btn btn-success m-3" (click)="previewCSV()">Preview</button>
+    <button class="btn btn-success m-3" (click)="addExpensesIntoTable()">
+      Submit
+    </button>
+    <div id="preview"></div>
+    <div id="warnMessage"></div>
+  </div>
+</div>

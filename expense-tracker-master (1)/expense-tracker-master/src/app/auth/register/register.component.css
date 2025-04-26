@@ -1,0 +1,41 @@
+body{
+  overflow-x: hidden;
+  font-family: Verdana, sans-serif;
+}
+
+
+form {
+  padding:10px;
+}
+
+
+
+input{
+  border-top: 0px;
+  border-right: 0px;
+  border-left: 0px;
+  border-radius: 0;
+  color: black;
+}
+
+
+
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+  border-color: #68716c;
+  box-shadow: 0 0 5px rgba(53, 61, 56, 0.5);
+}
+
+button{
+  background-color: #A5D6B1;
+  color: black;
+  border: 1px solid black;
+}
+
+.button1{
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}

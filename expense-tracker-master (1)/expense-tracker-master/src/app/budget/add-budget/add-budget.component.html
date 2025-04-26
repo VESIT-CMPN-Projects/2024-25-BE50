@@ -1,0 +1,65 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form [formGroup]="budgetForm">
+
+        <!-- Category Dropdown -->
+        <div ngbDropdown class="d-inline-block">
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            id="dropdownBasic1"
+            ngbDropdownToggle
+          >
+            {{ selectedCategory ?? "Select Category" }}
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button
+              (click)="selectCategory(category)"
+              ngbDropdownItem
+              *ngFor="let category of categoryData"
+            >
+              {{ category.category_name }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Budget Name -->
+        <div class="form-group">
+          <label for="budgetName">Budget Name</label>
+          <input type="text" class="form-control" id="budgetName" formControlName="budgetName" required />
+        </div>
+
+        <!-- Budget Description -->
+        <div class="form-group">
+          <label for="budgetDescription">Budget Description</label>
+          <textarea class="form-control" id="budgetDescription" formControlName="budgetDescription"></textarea>
+        </div>
+
+        <!-- Target Amount -->
+        <div class="form-group">
+          <label for="targetAmount">Target Amount</label>
+          <input type="number" class="form-control" id="targetAmount" formControlName="targetAmount" required />
+        </div>
+
+        <!-- Tags -->
+        <div class="form-group">
+          <label for="tags">Enter tags (comma-separated)</label>
+          <input type="text" class="form-control" id="tags" formControlName="tags" required />
+        </div>
+
+        <!-- Date to Achieve -->
+        <div class="form-group">
+          <label for="dateToAchieve">Date to Achieve</label>
+          <input type="date" class="form-control" id="dateToAchieve" formControlName="dateToAchieve" required />
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group text-center">
+          <button type="submit" (click)="submitBudgetForm()" class="btn btn-primary">Submit</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

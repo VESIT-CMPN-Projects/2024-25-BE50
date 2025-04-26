@@ -1,0 +1,65 @@
+<div class="container d-flex flex-column align-items-center mt-5">
+    <h2 class="mb-4">Expense Prediction</h2>
+    
+    <form class="p-4 shadow-lg rounded bg-light" [formGroup]="expenseForm" style="max-width: 500px; width: 100%;">
+        <div class="form-group">
+            <label for="monthly_salary" class="font-weight-bold">Enter Your Monthly Salary</label>
+            <input 
+              type="number" 
+              class="form-control" 
+              id="monthly_salary" 
+              formControlName="monthly_salary" 
+              required 
+              placeholder="Enter salary here..."
+            />
+        </div>
+        <div class="form-group">
+        <label for="goalAmount" class="font-weight-bold">Enter Your Goal Amount</label>
+        <input 
+          type="number" 
+          class="form-control" 
+          id="goalAmount" 
+          formControlName="goalAmount" 
+          required 
+          placeholder="Enter amount here..."
+        />
+        </div>
+        <div class="form-group">
+            <label for="years_to_achieve" class="font-weight-bold">Enter Years to Achieve</label>
+            <input 
+              type="number" 
+              class="form-control" 
+              id="years_to_achieve" 
+              formControlName="years_to_achieve" 
+              required 
+              placeholder="Enter years here..."
+            />
+        </div>
+  
+      <div class="d-flex justify-content-center mt-3">
+        <button type="submit" (click)="giveResult()" class="btn btn-dark px-4 py-2">Get Prediction</button>
+      </div>
+    </form>
+  
+    <!-- Enhanced Prediction Results Section -->
+    <div *ngIf="predictionResults" class="mt-4 shadow-lg rounded bg-white p-4" style="max-width: 600px; width: 100%; border-left: 6px solid #007bff;">
+      <h3 class="text-center text-primary font-weight-bold">📊 Prediction Results</h3>
+      
+      <div class="d-flex flex-column align-items-center mt-3">
+        <div class="w-100 text-left">
+          <p class="mb-1"><strong>🔹 Predicted Expenses:</strong></p>
+          <div class="bg-light p-2 rounded" style="max-height: 100px; overflow-y: auto;">
+            {{ predictionResults.predicted_expenses.slice(0, 10).join(', ') }} ...
+          </div>
+        </div>
+  
+        <div class="w-100 text-left mt-3">
+          <p class="mb-1"><strong>💰 Required Monthly Saving:</strong></p>
+          <div class="bg-success text-white p-2 rounded text-center font-weight-bold">
+            {{ predictionResults.required_saving }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

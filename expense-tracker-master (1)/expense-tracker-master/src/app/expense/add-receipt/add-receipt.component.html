@@ -1,0 +1,49 @@
+<div class="receipt-wrapper">
+  <h2>Add Expenses Using Receipt</h2>
+
+  <!-- Receipt Upload Section -->
+  <div class="upload-container">
+    <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+    <button (click)="uploadReceipt()" [disabled]="!selectedFile">Upload</button>
+  </div>
+
+  <!-- Loading Indicator -->
+  <div *ngIf="isLoading" class="loading">
+    <p>Processing receipt... Please wait.</p>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="error">
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <!-- Extracted Receipt Details -->
+  <div *ngIf="extractedReceipt" class="receipt-container">
+    <h3>📜 Receipt Details</h3>
+    <p><strong>🗓 Receipt Date:</strong> {{ extractedReceipt.receipt_date }}</p>
+    <p><strong>⏳ Due Date:</strong> {{ extractedReceipt.due_date }}</p>
+
+    <!-- Itemized Table -->
+    <h4>🛒 Purchased Items:</h4>
+    <table class="receipt-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of extractedReceipt.items">
+          <td>{{ item.item }}</td>
+          <td>{{ item.price | currency }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Summary Section -->
+    <h4>💰 Summary:</h4>
+    <p><strong>Subtotal:</strong> {{ extractedReceipt.total | currency }}</p>
+    <p><strong>Tax (5%):</strong> {{ (extractedReceipt.total * 0.05) | currency }}</p>
+    <p><strong>Final Amount:</strong> {{ (extractedReceipt.total * 1.05) | currency }}</p>
+  </div>
+</div>

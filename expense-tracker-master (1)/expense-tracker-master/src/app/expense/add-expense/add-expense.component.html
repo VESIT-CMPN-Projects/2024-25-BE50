@@ -1,0 +1,64 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form class="vertical-form" [formGroup]="expenseForm">
+
+        <div ngbDropdown class="d-inline-block">
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            id="dropdownBasic1"
+            ngbDropdownToggle
+          >
+            {{ selectedCategory ?? "Select Category" }}
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button
+              (click)="selectCategory(category)"
+              ngbDropdownItem
+              *ngFor="let category of categoryData"
+            >
+              {{ category.category_name }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Expense Name -->
+        <div class="form-group">
+          <label for="expenseName">Expense Name</label>
+          <input type="text" class="form-control" id="expenseName" placeholder="Expense Name" formControlName="expenseName" required />
+        </div>
+
+        <!-- Expense Amount -->
+        <div class="form-group">
+          <label for="expenseAmount">Expense Amount</label>
+          <input type="text" class="form-control" id="expenseAmount" placeholder="Expense Amount" formControlName="expenseAmount" required />
+        </div>
+
+        <!-- Expense Description -->
+        <div class="form-group">
+          <label for="expenseDescription">Expense Description</label>
+          <input type="text" class="form-control" id="expenseDescription" placeholder="Expense Description" formControlName="expenseDescription" required />
+        </div>
+
+        <!-- Expense Date -->
+        <div class="form-group">
+          <label for="expenseDate">Expense Date</label>
+          <input type="date" class="form-control" id="expenseDate" formControlName="expenseDate" required />
+        </div>
+
+        <!-- Tags -->
+        <div class="form-group">
+          <label for="tags">Tags</label>
+          <input type="text" class="form-control" id="tags" placeholder="Tags" formControlName="tags" />
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group text-center">
+          <button type="submit" (click)="submitForm()" class="btn btn-primary">Submit</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

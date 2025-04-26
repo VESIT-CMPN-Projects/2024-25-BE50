@@ -1,0 +1,58 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.1.8'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.project'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'javax.servlet:javax.servlet-api:4.0.1'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-mail:3.1.9'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+
+	// Database Driver for SQL Server
+	runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
+
+	// JSON Processing
+	implementation 'org.json:json:20240303'
+
+	// Twilio for SMS (if needed)
+	implementation 'com.twilio.sdk:twilio:10.1.5'
+
+	// File handling
+	implementation 'commons-io:commons-io:2.11.0'
+
+	// Tesseract OCR Java Wrapper
+	implementation 'net.sourceforge.tess4j:tess4j:4.5.5'
+
+	// Apache PDFBox for PDF processing
+	implementation 'org.apache.pdfbox:pdfbox:2.0.29'
+
+	// Lombok (for reducing boilerplate code)
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// Spring Boot Testing
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('bootBuildImage') {
+	builder = 'paketobuildpacks/builder-jammy-base:latest'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

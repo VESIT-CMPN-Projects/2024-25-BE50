@@ -1,0 +1,83 @@
+import pandas as pd
+import numpy as np
+from statsmodels.tsa.arima.model import ARIMA
+import matplotlib.pyplot as plt
+
+# Load your dataset (replace 'your_file.csv' with your actual dataset file)
+df = pd.read_csv("/content/Daily Household Transactions.csv")
+
+# Ensure proper datetime conversion and sorting
+df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
+df = df.dropna(subset=['Date'])  # Drop rows with invalid dates
+df = df.sort_values(by='Date')
+
+# Filter only expenses
+df = df[df['Income/Expense'] == 'Expense']
+
+# Group by month and calculate total monthly expenses
+df['Month'] = df['Date'].dt.to_period('M')
+monthly_expenses = df.groupby('Month')['Amount'].sum().to_timestamp()
+
+# Check for NaN values in the monthly expenses series
+print("NaN values in monthly expenses:", monthly_expenses.isna().sum())
+
+# Drop NaN values from monthly_expenses
+monthly_expenses = monthly_expenses.dropna()
+
+# Ensure that we have enough data for ARIMA (at least 12 months of data)
+if len(monthly_expenses) >= 12:
+    # Fit ARIMA model for forecasting
+    model = ARIMA(monthly_expenses, order=(1, 1, 1))
+    try:
+        fitted_model = model.fit()  # Fit the ARIMA model
+        print(fitted_model.summary())  # Check the model summary
+    except Exception as e:
+        print(f"Error fitting ARIMA model: {e}")
+        fitted_model = None
+else:
+    print("Not enough data points for ARIMA. Please provide at least 12 months of data.")
+    fitted_model = None
+
+# Forecasting future expenses if ARIMA model is fitted
+if fitted_model:
+    years_to_save = 7  # Adjust the timeline in years
+    forecast_months = years_to_save * 12  # Forecast for the given number of months
+    forecast = fitted_model.forecast(steps=forecast_months)
+
+    # Define the saving goal and required monthly saving
+    goal_amount = 100000  # Adjust your saving goal (INR)
+    required_monthly_saving = goal_amount / forecast_months
+
+    # Calculate predicted expenses and net saving
+    predicted_expenses = pd.Series(forecast, index=pd.date_range(
+        start=monthly_expenses.index[-1] + pd.offsets.MonthBegin(1), periods=forecast_months, freq='MS'
+    ))
+    monthly_saving_plan =  predicted_expenses - required_monthly_saving 
+
+    # Prepare DataFrame for saving plan
+    saving_plan_df = pd.DataFrame({
+        "Month": predicted_expenses.index,
+        "Predicted Expense": predicted_expenses.values.round(0),
+        "Required Saving": [round(required_monthly_saving, 0)] * forecast_months,
+        "Net Saving": monthly_saving_plan.values.round(0)
+    })
+
+    # Save the saving plan to a CSV file
+    saving_plan_df.to_csv("saving_plan.csv", index=False)
+
+    print(saving_plan_df)
+
+    # Plot the results
+    plt.figure(figsize=(12, 6))
+    plt.plot(monthly_expenses.index, monthly_expenses, label="Historical Expenses")
+    plt.plot(predicted_expenses.index, predicted_expenses, label="Predicted Expenses")
+    plt.axhline(y=required_monthly_saving, color='r', linestyle='--', label="Required Monthly Saving")
+    plt.title("Monthly Expenses and Savings Plan")
+    plt.xlabel("Month")
+    plt.ylabel("Amount (INR)")
+    plt.legend()
+    plt.grid()
+    plt.show()
+
+else:
+    print("ARIMA model did not fit properly. Please check your data or parameters.")

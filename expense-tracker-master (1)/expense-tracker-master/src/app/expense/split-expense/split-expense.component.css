@@ -1,0 +1,39 @@
+.container-fluid {
+  max-width: 600px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  border: none;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-control {
+  height: 45px;
+  font-size: 16px;
+}
+
+textarea.form-control {
+  height: 100px;
+}
+
+.btn {
+  height: 45px;
+  font-size: 16px;
+}
+
+.dropdown-toggle {
+  text-align: left;
+}
+
+.calculated-share {
+  font-size: 18px;
+  font-weight: bold;
+  color: #007bff;
+}

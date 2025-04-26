@@ -1,0 +1,36 @@
+<div class="container">
+  <h2 class="page-title">Budget List</h2>
+
+  <!-- Table Section -->
+  <div class="table-container">
+    <table class="budget-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Tags</th>
+          <th>Target Achieved</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let budget of budgetList" routerLink="/budget/{{budget.slug}}">
+          <td>{{ budget.budget_name }}</td>
+          <td>Rs. {{ budget.target_amount }}</td>
+          <td>{{ budget.date_to_achieve | date : "mediumDate" }}</td>
+          <td>{{ budget.category_name }}</td>
+          <td>{{ budget.budget_description }}</td>
+          <td>{{ budget.tags }}</td>
+          <td>{{ budget.target_achieved }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Bar Chart Section -->
+  <div class="chart-container">
+    <app-bar-chart></app-bar-chart>
+  </div>
+</div>
